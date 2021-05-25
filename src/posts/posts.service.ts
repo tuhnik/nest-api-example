@@ -5,16 +5,37 @@ import CreatePostDto from './dto/createPost.dto';
 import Post from './post.entity';
 import UpdatePostDto from './dto/updatePost.dto';
 import { PostNotFoundException } from './exception/postNotFound.exception';
+import Tag from './tag.entity';
+import User from 'src/users/user.entity';
 
 @Injectable()
 export default class PostsService {
   constructor(
     @InjectRepository(Post)
     private postsRepository: Repository<Post>,
+    @InjectRepository(Tag)
+    private tagsRepository: Repository<Tag>,
   ) {}
 
-  getAllPosts() {
-    return this.postsRepository.find();
+  async getAllPosts() {
+    // const tag = await this.tagsRepository.create({ name: 'Java' });
+    // await this.tagsRepository.save(tag);
+    // return tag;
+
+    // const newPost = {
+    //   title: 'See on uus post',
+    //   content: 'Hai!!',
+    //   tags: [{ id: 2 }],
+    // };
+
+    // const post = await this.postsRepository.create(newPost);
+    // return await this.postsRepository.save(post);
+
+    return await this.postsRepository.find({
+      order: {
+        id: 'DESC',
+      },
+    });
   }
 
   async getPostById(id: number) {
@@ -25,8 +46,11 @@ export default class PostsService {
     throw new PostNotFoundException(id);
   }
 
-  async createPost(post: CreatePostDto) {
-    const newPost = await this.postsRepository.create(post);
+  async createPost(post: CreatePostDto, user: User) {
+    const newPost = await this.postsRepository.create({
+      ...post,
+      author: user,
+    });
     await this.postsRepository.save(newPost);
     return newPost;
   }
