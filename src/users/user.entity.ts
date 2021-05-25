@@ -19,7 +19,7 @@ class User {
   public password: string;
 
   @OneToMany(() => Post, (post: Post) => post.author)
-  public posts: Post[];
+  public posts?: Post[];
 }
 
 export default User;
