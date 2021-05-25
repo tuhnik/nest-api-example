@@ -51,11 +51,10 @@ describe('authenticationController', () => {
   });
   describe('when registering', () => {
     describe('and using valid data', () => {
-      it('should respond with the data of the user without the password and id', () => {
+      it('should respond with the data of the user without the password', () => {
         const expectedData = {
           ...userData,
         };
-        delete expectedData.id;
         delete expectedData.password;
 
         return request(app.getHttpServer())

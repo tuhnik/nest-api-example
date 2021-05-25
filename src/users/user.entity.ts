@@ -5,7 +5,6 @@ import Post from 'src/posts/post.entity';
 @Entity()
 class User {
   @PrimaryGeneratedColumn()
-  @Exclude()
   public id: number;
 
   @Column({ unique: true })
