@@ -28,6 +28,7 @@ export class UsersController {
       request.user.id,
       file.buffer,
       file.originalname,
+      file.mimetype,
     );
   }
 

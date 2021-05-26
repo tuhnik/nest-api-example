@@ -14,13 +14,18 @@ export class FilesService {
     private readonly configService: ConfigService,
   ) {}
 
-  async uploadPublicFile(dataBuffer: Buffer, filename: string) {
+  async uploadPublicFile(
+    dataBuffer: Buffer,
+    filename: string,
+    mimetype: string,
+  ) {
     const s3 = new S3();
     const uploadResult = await s3
       .upload({
         Bucket: this.configService.get('AWS_PUBLIC_BUCKET_NAME'),
         Body: dataBuffer,
         Key: `${uuid()}-${filename}`,
+        ContentType: mimetype,
       })
       .promise();
 

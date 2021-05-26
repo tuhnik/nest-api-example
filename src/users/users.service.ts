@@ -41,10 +41,16 @@ export class UsersService {
     return newUser;
   }
 
-  async addAvatar(userId: number, imageBuffer: Buffer, filename: string) {
+  async addAvatar(
+    userId: number,
+    imageBuffer: Buffer,
+    filename: string,
+    mimetype: string,
+  ) {
     const avatar = await this.filesService.uploadPublicFile(
       imageBuffer,
       filename,
+      mimetype,
     );
     const user = await this.getById(userId);
     await this.usersRepository.update(userId, {
