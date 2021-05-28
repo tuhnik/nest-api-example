@@ -6,7 +6,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import { Exclude, Transform } from 'class-transformer';
 import Post from 'src/posts/post.entity';
 import PublicFile from '../files/publicFile.entity';
 
@@ -30,9 +30,11 @@ class User {
   public posts?: Post[];
 
   @JoinColumn()
+  @Transform(({ value }) => {
+    if (value) return value;
+  })
   @OneToOne(() => PublicFile, {
     eager: true,
-    nullable: true,
   })
   public avatar?: PublicFile;
 }
