@@ -1,4 +1,4 @@
-import { Exclude, Transform } from 'class-transformer';
+import { Transform } from 'class-transformer';
 import User from 'src/users/user.entity';
 import {
   Column,
@@ -13,7 +13,6 @@ import Tag from './tag.entity';
 @Entity()
 class Post {
   @PrimaryGeneratedColumn()
-  @Exclude()
   public id: number;
 
   @Column()

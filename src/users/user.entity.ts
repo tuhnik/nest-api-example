@@ -29,6 +29,10 @@ class User {
   @OneToMany(() => Post, (post: Post) => post.author)
   public posts?: Post[];
 
+  @Column({ nullable: true })
+  @Exclude()
+  public refreshToken?: string;
+
   @JoinColumn()
   @Transform(({ value }) => {
     if (value) return value;
