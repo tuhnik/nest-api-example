@@ -37,7 +37,7 @@ export default class PostsController {
   }
 
   @Put(':id')
-  @UseGuards(JwtRefreshGuard)
+  @UseGuards(JwtAuthenticationGuard)
   async updatePost(@Param('id') id: string, @Body() post: UpdatePostDto) {
     return this.postsService.updatePost(Number(id), post);
   }
